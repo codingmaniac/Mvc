@@ -13,11 +13,12 @@ namespace FilesWebSite
         // Set up application services
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options => options.EnableGlobalRouting = true);
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: null, template: "{controller}/{action}", defaults: null);

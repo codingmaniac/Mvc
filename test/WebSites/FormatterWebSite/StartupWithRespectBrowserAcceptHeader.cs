@@ -13,11 +13,13 @@ namespace FormatterWebSite
             services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = true;
+                options.EnableGlobalRouting = true;
             });
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("ActionAsMethod", "{controller}/{action}",

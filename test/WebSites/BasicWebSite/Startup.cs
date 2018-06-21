@@ -16,6 +16,8 @@ namespace BasicWebSite
         // Set up application services
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
             services.AddAuthentication()
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Api", _ => { });
             services.AddTransient<IAuthorizationHandler, ManagerHandler>();
@@ -28,7 +30,7 @@ namespace BasicWebSite
                     options.Filters.Add(new TraceResourceFilter());
 
                     // Remove when all URL generation tests are passing - https://github.com/aspnet/Routing/issues/590
-                    options.EnableGlobalRouting = false;
+                    options.EnableGlobalRouting = true;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Latest)
                 .AddXmlDataContractSerializerFormatters();
@@ -63,6 +65,8 @@ namespace BasicWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();

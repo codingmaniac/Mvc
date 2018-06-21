@@ -22,7 +22,7 @@ namespace ControllersFromServicesWebSite
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = services
-                .AddMvc()
+                .AddMvc(options => options.EnableGlobalRouting = true)
                 .ConfigureApplicationPartManager(manager => manager.ApplicationParts.Clear())
                 .AddApplicationPart(typeof(TimeScheduleController).GetTypeInfo().Assembly)
                 .ConfigureApplicationPartManager(manager =>
@@ -37,6 +37,8 @@ namespace ControllersFromServicesWebSite
                 .AddControllersAsServices()
                 .AddViewComponentsAsServices()
                 .AddTagHelpersAsServices();
+
+            
 
             services.AddTransient<QueryValueService>();
             services.AddTransient<ValueService>();
@@ -57,6 +59,8 @@ namespace ControllersFromServicesWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action}/{id}");

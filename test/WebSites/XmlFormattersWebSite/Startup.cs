@@ -17,7 +17,7 @@ namespace XmlFormattersWebSite
         public void ConfigureServices(IServiceCollection services)
         {
             // Add MVC services to the services container
-            services.AddMvc();
+            services.AddMvc(options => options.EnableGlobalRouting = true);
 
             services.Configure<MvcOptions>(options =>
             {
@@ -68,6 +68,8 @@ namespace XmlFormattersWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("ActionAsMethod", "{controller}/{action}",

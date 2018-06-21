@@ -23,7 +23,7 @@ namespace RazorWebSite
             services.AddSingleton<ITagHelperComponent, TestBodyTagHelperComponent>();
 
             services
-                .AddMvc()
+                .AddMvc(options => options.EnableGlobalRouting = true)
                 .AddRazorOptions(options =>
                 {
                     options.FileProviders.Add(new EmbeddedFileProvider(
@@ -43,6 +43,8 @@ namespace RazorWebSite
                 })
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder);
 
+            
+
             services.AddTransient<InjectedHelper>();
             services.AddTransient<TaskReturningService>();
             services.AddTransient<FrameworkSpecificHelper>();
@@ -50,6 +52,7 @@ namespace RazorWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
             app.UseDeveloperExceptionPage();
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
@@ -68,7 +71,12 @@ namespace RazorWebSite
                 }
             });
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

@@ -20,11 +20,14 @@ namespace ApplicationModelWebSite
                 options.Conventions.Add(new FromHeaderConvention());
                 options.Conventions.Add(new MultipleAreasControllerConvention());
                 options.Conventions.Add(new CloneActionConvention());
+                options.EnableGlobalRouting = true;
             });
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "areaRoute",

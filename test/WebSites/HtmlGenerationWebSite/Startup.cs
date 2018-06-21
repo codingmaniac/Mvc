@@ -14,9 +14,11 @@ namespace HtmlGenerationWebSite
         // Set up application services
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
             // Add MVC services to the services container. Change default FormTagHelper.AntiForgery to false. Usually
             // null which is interpreted as true unless element includes an action attribute.
-            services.AddMvc().InitializeTagHelper<FormTagHelper>((helper, _) => helper.Antiforgery = false);
+            services.AddMvc(options => options.EnableGlobalRouting = true).InitializeTagHelper<FormTagHelper>((helper, _) => helper.Antiforgery = false);
 
             services.AddSingleton(typeof(ISignalTokenProviderService<>), typeof(SignalTokenProviderService<>));
             services.AddSingleton<ProductsService>();
@@ -24,7 +26,10 @@ namespace HtmlGenerationWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

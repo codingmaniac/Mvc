@@ -12,12 +12,15 @@ namespace FormatterWebSite
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
             services.AddMvc(options =>
             {
                 options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(Developer)));
                 options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(Supplier)));
 
                 options.InputFormatters.Add(new StringInputFormatter());
+                options.EnableGlobalRouting = true;
             })
             .AddXmlDataContractSerializerFormatters();
 
@@ -27,6 +30,7 @@ namespace FormatterWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("ActionAsMethod", "{controller}/{action}",

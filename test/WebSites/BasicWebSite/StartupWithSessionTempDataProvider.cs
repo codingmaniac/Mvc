@@ -12,7 +12,7 @@ namespace BasicWebSite
         {
             // CookieTempDataProvider is the default ITempDataProvider, so we must override it with session.
             services
-                .AddMvc()
+                .AddMvc(options => options.EnableGlobalRouting = true)
                 .AddSessionStateTempDataProvider();
             services.AddSession();
 
@@ -21,9 +21,17 @@ namespace BasicWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseGlobalRouting();
+
             app.UseDeveloperExceptionPage();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

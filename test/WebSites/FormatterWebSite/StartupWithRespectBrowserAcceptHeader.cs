@@ -19,7 +19,6 @@ namespace FormatterWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("ActionAsMethod", "{controller}/{action}",

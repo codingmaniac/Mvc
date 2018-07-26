@@ -13,8 +13,6 @@ namespace CorsWebSite
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddMvc();
             services.Configure<CorsOptions>(options =>
             {
@@ -76,9 +74,7 @@ namespace CorsWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
-            app.UseEndpoint();
+            app.UseMvc();
         }
 
         public static void Main(string[] args)

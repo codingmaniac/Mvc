@@ -18,8 +18,6 @@ namespace ApiExplorerWebSite
         // Set up application services
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddTransient<ILoggerFactory, LoggerFactory>();
             services.AddMvc(options =>
             {
@@ -47,8 +45,6 @@ namespace ApiExplorerWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action}");

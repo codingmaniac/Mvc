@@ -16,8 +16,6 @@ namespace BasicWebSite
         // Set up application services
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddAuthentication()
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Api", _ => { });
             services.AddTransient<IAuthorizationHandler, ManagerHandler>();
@@ -65,8 +63,6 @@ namespace BasicWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();

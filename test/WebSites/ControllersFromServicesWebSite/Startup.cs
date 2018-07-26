@@ -38,8 +38,6 @@ namespace ControllersFromServicesWebSite
                 .AddViewComponentsAsServices()
                 .AddTagHelpersAsServices();
 
-            
-
             services.AddTransient<QueryValueService>();
             services.AddTransient<ValueService>();
             services.AddHttpContextAccessor();
@@ -59,8 +57,6 @@ namespace ControllersFromServicesWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action}/{id}");

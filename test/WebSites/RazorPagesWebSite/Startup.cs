@@ -13,10 +13,8 @@ namespace RazorPagesWebSite
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login");
-            services.AddMvc()
+            services.AddMvc(options => options.EnableGlobalRouting = true)
                 .AddMvcLocalization()
                 .AddRazorPagesOptions(options =>
                 {
@@ -32,8 +30,6 @@ namespace RazorPagesWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
             app.UseAuthentication();
 
             app.UseStaticFiles();
@@ -50,7 +46,7 @@ namespace RazorPagesWebSite
                 SupportedUICultures = supportedCultures
             });
 
-            app.UseEndpoint();
+            app.UseMvc();
         }
     }
 }

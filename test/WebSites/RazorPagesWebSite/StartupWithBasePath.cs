@@ -12,8 +12,6 @@ namespace RazorPagesWebSite
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/Login");
             services.AddMvc(options => options.EnableGlobalRouting = true)
@@ -31,8 +29,6 @@ namespace RazorPagesWebSite
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGlobalRouting();
-
             app.UseAuthentication();
 
             app.UseStaticFiles();
